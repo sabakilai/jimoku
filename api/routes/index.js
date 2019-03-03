@@ -18,8 +18,8 @@ router.get('/time/:hours', function(req, res, next) {
     
     const options = {
         method: 'POST',
-        uri: 'http://bb78.host.cs.st-andrews.ac.uk:8008/',
-        // uri: 'http://127.0.0.1:8008/',
+        //uri: 'http://bb78.host.cs.st-andrews.ac.uk:8008/',
+        uri: 'http://127.0.0.1:8008/',
         form: {hours:hours}
     }
     

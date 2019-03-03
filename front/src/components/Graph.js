@@ -11,9 +11,26 @@ class Graph extends Component {
     this.min = null;
     this.data = [];
 
+    this.processData = this.processData.bind(this);
+
   }
 
-  
+  processData = (data) => {
+    let min = 10000;
+    let max = 0;
+    for(let i=0; i<data.length; i++){
+      if(data[i].Occupancy < min) {
+        min = data[i].Occupancy;
+      }
+      if (data[i].Occupancy >= max) {
+          max = data[i].Occupancy;
+      }
+    }
+
+    this.max = Math.floor(max * 1.1);
+    this.max = Math.floor(min * 0.9);
+    console.log(this.max + " " + this.min)
+  }
 
 
   render() {
@@ -22,14 +39,13 @@ class Graph extends Component {
 
     if (!this.props.graphData.success)
       return(
-        
           <h2>Something went wrong</h2>
-       
       )
     const graphData = this.props.graphData.result.data;
 
-    // if(!this.max || !this.min)
-    //   this.processData(graphData);
+    
+    if(!this.max || !this.min)
+      this.processData(graphData);
     
     return (
       <ResponsiveContainer width="99%" height={320}>
@@ -45,7 +61,7 @@ class Graph extends Component {
           </XAxis>
           <YAxis dataKey="Occupancy"
             type="number"
-            //domain={[this.min, this.max]}
+            domain={[this.min, this.max]}
             />
           <Tooltip />
           <Line type="monotone" dataKey="Occupancy" stroke="#8884d8" />

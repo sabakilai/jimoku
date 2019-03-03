@@ -5,7 +5,7 @@ import  request  from 'request';
 
 
 function OptionItem(props){
-  const options = ["Next Hour", "Today", "Next 4 Hours"];
+  const options = ["Next Hour", "Next 24 Hours", "Next 4 Hours"];
   const layout = {
     marginTop:10
   };
@@ -25,8 +25,8 @@ function OptionItem(props){
   const getOccupation = (hours) => {
     const options = {
       method: 'GET',
-      //uri: 'http://localhost:3000/time/' + hours,
-      uri: 'http://bb78.host.cs.st-andrews.ac.uk:3000/time/' + hours,
+      uri: 'http://localhost:3000/time/' + hours,
+      //uri: 'http://bb78.host.cs.st-andrews.ac.uk:3000/time/' + hours,
     }
   
     request(options, (err, response, body) => {
