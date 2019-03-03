@@ -2,6 +2,7 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import SocketServer
 import json
 import cgi
+from predict import predict
 
 class Server(BaseHTTPRequestHandler):
     def _set_headers(self):
@@ -20,23 +21,18 @@ class Server(BaseHTTPRequestHandler):
     # POST echoes the message adding a JSON field
     def do_POST(self):
         ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
-        print(ctype)
-        # refuse to receive non-json content
-
-            
-        # read the message and convert it into a python dictionary
-        # length = int(self.headers.getheader('content-length'))
-        # message = json.loads(self.rfile.read(length))
-
         length = int(self.headers.getheader('content-length'))
         postvars = cgi.parse_qs(self.rfile.read(length), keep_blank_values=1)
-        print( postvars)
-        # add a property to the object, just to mess with data
-        message['received'] = 'ok'
+
+        hours = int(postvars['hours'][0])
+
+        predictions = predict(hours)
+        out = generate_response(predictions)
+        result = {}
+        result['data'] = out
         
-        # send the message back
         self._set_headers()
-        self.wfile.write(json.dumps(message))
+        self.wfile.write(json.dumps(result))
         
 def run(server_class=HTTPServer, handler_class=Server, port=8008):
     server_address = ('', port)
@@ -44,6 +40,26 @@ def run(server_class=HTTPServer, handler_class=Server, port=8008):
     
     print ('Starting httpd on port',  port)
     httpd.serve_forever()
+
+def generate_response(predictions):
+    result = []
+    for prediction in predictions:
+        hour = str(prediction.time[0])
+        minute = str(prediction.time[1])
+        time = hour + '-' + minute
+
+        
+        if(int(hour) >= 8 and int(hour) <= 21):
+            
+            pred = round(prediction.get_prediction(), 0)
+
+        else:   
+            pred = 0
+
+        
+        result.append([time, pred])
+
+    return result
     
 if __name__ == "__main__":
     from sys import argv
