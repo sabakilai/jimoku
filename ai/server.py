@@ -43,21 +43,23 @@ def run(server_class=HTTPServer, handler_class=Server, port=8008):
 
 def generate_response(predictions):
     result = []
+    data = {}
     for prediction in predictions:
         hour = str(prediction.time[0])
         minute = str(prediction.time[1])
-        time = hour + '-' + minute
-
+        time = hour + ':' + minute
         
-        if(int(hour) >= 8 and int(hour) <= 21):
-            
-            pred = round(prediction.get_prediction(), 0)
-
+        if((int(hour) >= 7 and int(hour) < 23) or (int(hour) == 6 and int(minute)>30 ) ):
+            pred = round(prediction.get_prediction() * (80/float(120)) , 0)
+            if (pred <0):
+                pred = 0
         else:   
             pred = 0
 
-        
-        result.append([time, pred])
+        data['name'] = time
+        data['Occupancy'] = pred
+        result.append(data)
+        data = {}
 
     return result
     

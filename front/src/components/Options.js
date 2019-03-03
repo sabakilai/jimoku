@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import OptionItem from './OptionItem';
 
 function Options(props){
+  
   const options = [1, 24, 4];
   return (
     <Grid
@@ -14,12 +13,7 @@ function Options(props){
       justify="space-evenly"
       alignItems="center"
     >
-      {options.map((option) => {
-        return <OptionItem
-                  option={option}
-                  getTime={props.getTime}
-                  />
-      })}
+      {options.map((option) => {return <OptionItem onGraphUpdate={props.onGraphUpdate} option={option}/>})}
     </Grid>
   );
 }
