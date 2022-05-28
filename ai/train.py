@@ -4,7 +4,7 @@ import numpy as np
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import PolynomialFeatures
-import pickle
+import joblib
 
 def plot2D(x,y):
     plt.scatter(x,y)
@@ -41,7 +41,7 @@ yTrain = trainData[:,8]
 xTest = testData[:, 0:8]
 yTest = testData[:,8]
 
-poly = PolynomialFeatures(degree=9)
+poly = PolynomialFeatures(degree=6)
 xTrain_ = poly.fit_transform(xTrain)
 xTest_ = poly.fit_transform(xTest)
 
@@ -53,10 +53,7 @@ y_hat = linreg.predict(xTest_)
 print('MSE = ', mean_squared_error(yTest,y_hat))
 print('Score = ', linreg.score(xTest_, yTest))
 
-filename = 'model.sav'
-pickle.dump(linreg, open(filename, 'wb'))
+filename = './model/model.sav'
+joblib.dump(linreg, filename)
 
-
-for i in range(len(yTest)):
-    print(yTest[i], y_hat[i])
 

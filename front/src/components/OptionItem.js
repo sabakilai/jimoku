@@ -25,8 +25,7 @@ function OptionItem(props){
   const getOccupation = (hours) => {
     const options = {
       method: 'GET',
-      uri: 'http://localhost:3000/time/' + hours,
-      //uri: 'http://bb78.host.cs.st-andrews.ac.uk:3000/time/' + hours,
+      uri: 'http://localhost:5000/time/' + hours,
     }
   
     request(options, (err, response, body) => {
@@ -35,8 +34,6 @@ function OptionItem(props){
         return
       }
       props.onGraphUpdate(JSON.parse(body));   
-      //console.log(JSON.parse(body))
-      //return {success:true, result: JSON.parse(body)};
     })
   }
 

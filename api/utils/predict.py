@@ -1,7 +1,7 @@
-import pickle
+import joblib
 from sklearn.preprocessing import PolynomialFeatures
 import numpy as np
-from time_gererator import generate_times
+from api.utils.time_generator import generate_times
 import datetime
 
 def predict(hours):
@@ -20,7 +20,7 @@ def predict(hours):
     FRIDAY = 5
     SATURDAY = 6
     SUNDAY = 7
-    filename = './model/model.sav'
+    filename = '../ai/model/model.sav'
 
     input_array = []
     X = []
@@ -49,10 +49,11 @@ def predict(hours):
         X.append(np.array(input_array))
         input_array = input_array[:-1]
 
-    poly = PolynomialFeatures(degree=9)
+    poly = PolynomialFeatures(degree=6)
     X = poly.fit_transform(X)
 
-    loaded_model = pickle.load(open(filename, 'rb'))
+    loaded_model = joblib.load(filename)
+
     out =  loaded_model.predict(X)
 
     for i in range(0, len(out)):

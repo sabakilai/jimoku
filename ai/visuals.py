@@ -5,7 +5,7 @@ import numpy as np
 import pickle
 
 def plot2D(x,y):
-    plt.scatter(x,y)
+    plt.plot(x,y)
     plt.show()
 
 def plot3D (*args):
