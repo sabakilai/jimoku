@@ -23,7 +23,7 @@ def getSecs(hours,mins):
 
 def generate_times(hours):
     times = []
-    now = datetime.now()
+    now = datetime.now() 
     minutes = hours * 12
     times.append(Timestamp([now.hour, now.minute], getSecs(now.hour, now.minute)))
 
