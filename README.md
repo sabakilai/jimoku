@@ -19,8 +19,54 @@ User have three options to estimate future occupation for the next:
 - 4 hours
 - 24 hours
 
-![Jimoku demo](demo/demo.gif)
+<p align="center">
+  <img src="demo/demo.gif" alt="animated" />
+</p>
 
 
-## Repository 
+## Install 
+
+### Requirements 
+- Python
+- pip
+- Node.js
+- npm 
+
+<br>
+
+
+Install Python dependencies:
+
+```
+pip install -r requirements.txt
+
+```
+
+Install Node.js dependencies:
+
+```
+cd front/
+
+npm install
+```
+
+## Running
+
+To run the application in development mode, first start the flask app:
+
+```
+cd api/
+
+flask run
+```
+
+Then start the React app:
+
+```
+cd front/
+
+npm start
+```
+
+Open [localhost:3000](http://localhost:3000/) in your browser to view the app
 
