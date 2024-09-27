@@ -70,3 +70,6 @@ npm start
 
 Open [localhost:3000](http://localhost:3000/) in your browser to view the app
 
+=IFERROR(INDEX(GET.WORKBOOK(1), MATCH(1, INDEX((CELL("address",A1)=GET.WORKBOOK(1)),0),0),1), "Not in a named range")
+
+
